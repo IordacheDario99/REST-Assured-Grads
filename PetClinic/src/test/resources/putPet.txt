@@ -1,0 +1,27 @@
+{
+  "birthDate": "2022/08/01",
+  "id": null,
+  "name": "Doge",
+  "owner": {
+    "address": "Doge street",
+    "city": "Doge City",
+    "firstName": "The Doge Owner",
+    "id": 45,
+    "lastName": "Yes",
+    "pets": [
+      null
+    ],
+    "telephone": "string"
+  },
+  "type": {
+    "id": 6,
+    "name": "Hamster"
+  },
+  "visits": [
+    {
+      "date": "yyyy/MM/dd",
+      "description": "string",
+      "id": 0
+    }
+  ]
+}
