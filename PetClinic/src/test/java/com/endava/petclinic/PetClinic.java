@@ -103,7 +103,7 @@ public class PetClinic {
                         "    \"address\": \"Doge street\",\n" +
                         "    \"city\": \"Doge City\",\n" +
                         "    \"firstName\": \"The Doge Owner\",\n" +
-                        "    \"id\": 69,\n" +
+                        "    \"id\": 12,\n" +
                         "    \"lastName\": \"Yes\",\n" +
                         "    \"pets\": [\n" +
                         "      null\n" +
@@ -138,7 +138,7 @@ public class PetClinic {
                         "    \"date\": \"2022/08/01\",\n" +
                         "    \"description\": \"Crypto check\",\n" +
                         "    \"pet\": {\n" +
-                        "      \"id\": 52,\n" +
+                        "      \"id\": 21,\n" +
                         "  \"name\": \"Doge\",\n" +
                         "  \"birthDate\": \"2022/08/01\",\n" +
                         "  \"type\": {\n" +
@@ -146,7 +146,7 @@ public class PetClinic {
                         "    \"name\": \"hamster\"\n" +
                         "  },\n" +
                         "  \"owner\": {\n" +
-                        "    \"id\": 69,\n" +
+                        "    \"id\": 12,\n" +
                         "    \"firstName\": \"Dario\",\n" +
                         "    \"lastName\": \"Iordache\",\n" +
                         "    \"address\": \"Tineretului, nr1\",\n" +
