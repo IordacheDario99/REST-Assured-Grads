@@ -18,12 +18,29 @@ public class PetController {
         //String birthDate = dateFormatter.format((TemporalAccessor) faker.date().birthday());
 
         Pet pet = new Pet(faker.funnyName().name(),
-                dateFormatter.format(faker.date().birthday()).toString(),
+                dateFormatter.format(faker.date().birthday()),
                 owner,
                 petType
         );
-
         return pet;
+    }
+
+    public static  Pet getNewPetStatic(){
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy/MM/dd");
+        Faker faker = new Faker();
+        Owner owner = new Owner();
+        PetType petType = new PetType();
+
+        // dupa care trebuie sa cream un obiect de tip owner si petType
+        //String birthDate = dateFormatter.format((TemporalAccessor) faker.date().birthday());
+
+        Pet pet = new Pet(faker.funnyName().name(),
+                dateFormatter.format(faker.date().birthday()),
+                owner,
+                petType
+        );
+        return pet;
+
     }
 
 }

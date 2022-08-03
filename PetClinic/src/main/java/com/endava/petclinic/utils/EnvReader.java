@@ -16,15 +16,40 @@ public class EnvReader {
         }
     }
 
-    public static String getBaseUri(){
+    public static String getBaseUri() {
         return properties.getProperty("baseUri");
     }
 
-    public static String getBasePath(){
+    public static String getBasePath() {
         return properties.getProperty("basePath");
     }
 
-    public static Integer getPort(){
+    public static Integer getPort() {
         return Integer.parseInt(properties.getProperty("port"));
     }
+
+    public static Integer getSecurePort() {
+        return Integer.parseInt(properties.getProperty("securePort"));
+    }
+
+    public static String getApiKey() {
+        return properties.getProperty("apiKey");
+    }
+
+    public static String getApiKeySecret() {
+        return properties.getProperty("apiKeySecret");
+    }
+
+    public static String getAccessToken() {
+        return properties.getProperty("accessToken");
+    }
+
+    public static String getAccessTokenSecret() {
+        return properties.getProperty("accessTokenSecret");
+    }
+    public static String getTwBanner() {
+        return properties.getProperty("twBanner");
+    }
+
+
 }

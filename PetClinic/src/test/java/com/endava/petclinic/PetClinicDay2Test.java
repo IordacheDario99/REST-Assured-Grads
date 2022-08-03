@@ -2,6 +2,7 @@ package com.endava.petclinic;
 
 import com.endava.petclinic.contollers.OwnerController;
 import com.endava.petclinic.models.Owner;
+import com.endava.petclinic.models.User;
 import com.endava.petclinic.utils.EnvReader;
 import com.github.javafaker.Faker;
 import io.restassured.http.ContentType;
@@ -121,4 +122,89 @@ public class PetClinicDay2Test {
         Owner actualOwner = getResponse.extract().as(Owner.class);
         assertThat(actualOwner, is(owner));
     }
+
+    @Test
+    public void postOwnerTestWithObjectWithAuth() {
+
+        Owner owner = OwnerController.getNewRandomOwner();
+
+        ValidatableResponse response = given().baseUri(EnvReader.getBaseUri())
+                .basePath(EnvReader.getBasePath())
+                .contentType(ContentType.JSON)
+                .body(owner).log().all()
+                .port(EnvReader.getSecurePort())
+                .auth().preemptive()
+                .basic("admin","admin")// pentru user si parola, preemptive trimite direct credentialele
+                .post("/api/owners").prettyPeek()
+                .then()
+                .statusCode(HttpStatus.SC_CREATED);
+
+        owner.setId(response.extract().jsonPath().getInt("id"));
+
+        ValidatableResponse getResponse = given().given().baseUri(EnvReader.getBaseUri())
+                .basePath(EnvReader.getBasePath())
+                .contentType(ContentType.JSON)
+                .pathParam("ownerId", owner.getId())
+                .port(EnvReader.getSecurePort())
+                .auth().preemptive()
+                .basic("admin", "admin")
+                .when()
+                .get("/api/owners/{ownerId}")
+                .then()
+                .statusCode(HttpStatus.SC_OK);
+
+        Owner ownerFromGetResponse = getResponse.extract().as(Owner.class);
+        assertThat(ownerFromGetResponse, is(owner));
+    }
+
+    @Test
+    public void createOwnerSecuredTest(){
+
+        Faker faker = new Faker();
+        User user = new User(faker.name().username(),faker.internet().password(),"OWNER_ADMIN", "VET_ADMIN");
+
+        given().baseUri(EnvReader.getBaseUri()).basePath(EnvReader.getBasePath())
+                .port(EnvReader.getSecurePort())
+                .auth().preemptive()
+                .basic("admin","admin")
+                .contentType(ContentType.JSON)
+                .body(user).log().all()
+                .post("/api/users")
+                .then()
+                .statusCode(HttpStatus.SC_CREATED);
+
+
+
+        Owner owner = OwnerController.getNewRandomOwner();
+
+        ValidatableResponse response = given().baseUri(EnvReader.getBaseUri())
+                .basePath(EnvReader.getBasePath())
+                .contentType(ContentType.JSON)
+                .body(owner).log().all()
+                .port(EnvReader.getSecurePort())
+                .auth().preemptive()
+                .basic(user.getUsername(),user.getPassword())// pentru user si parola, preemptive trimite direct credentialele
+                .post("/api/owners").prettyPeek()
+                .then()
+                .statusCode(HttpStatus.SC_CREATED);
+
+        owner.setId(response.extract().jsonPath().getInt("id"));
+
+        ValidatableResponse getResponse = given().given().baseUri(EnvReader.getBaseUri())
+                .basePath(EnvReader.getBasePath())
+                .contentType(ContentType.JSON)
+                .pathParam("ownerId", owner.getId())
+                .port(EnvReader.getSecurePort())
+                .auth().preemptive()
+                .basic(user.getUsername(),user.getPassword())
+                .when()
+                .get("/api/owners/{ownerId}")
+                .then()
+                .statusCode(HttpStatus.SC_OK);
+
+        Owner ownerFromGetResponse = getResponse.extract().as(Owner.class);
+        assertThat(ownerFromGetResponse, is(owner));
+
+    }
+
 }

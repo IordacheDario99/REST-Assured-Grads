@@ -95,9 +95,8 @@ public class PetApiTest {
         petOwner.setFirstName(getOwner.extract().jsonPath().getString("firstName"));
         petOwner.setLastName(getOwner.extract().jsonPath().getString("lastName"));
         petOwner.setCity(getOwner.extract().jsonPath().getString("city"));
-        petOwner.setAddress(getOwner.extract().jsonPath().getString("address"));
 
-        //GET petType by id
+        //GET petType by id        petOwner.setAddress(getOwner.extract().jsonPath().getString("address"));
         PetType petType = new PetType();
         ValidatableResponse getPetType = given().baseUri(EnvReader.getBaseUri()).basePath(EnvReader.getBasePath()).
                 port(EnvReader.getPort())
@@ -115,7 +114,7 @@ public class PetApiTest {
         ValidatableResponse postPet = given().baseUri(EnvReader.getBaseUri()).basePath(EnvReader.getBasePath()).
                 port(EnvReader.getPort())
                 .contentType(ContentType.JSON)
-                .body(pet)
+                .body(pet).log().all()
                 .when()
                 .post("/api/pets").prettyPeek()
                 .then()
